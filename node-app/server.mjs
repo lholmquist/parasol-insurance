@@ -3,6 +3,7 @@ import fastifyWebsocket from '@fastify/websocket';
 import fastifyStatic from '@fastify/static';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
+import fs from 'node:fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,11 +14,16 @@ const fastify = Fastify({
   logger: true
 });
 
-// console.log(__dirname);
+console.log(__dirname);
 
 fastify.register(fastifyStatic, {
-  root: path.join(__dirname, 'webui')
+  wildcard: false,
+  root: path.join(__dirname, '../webui/dist')
 });
+
+fastify.get('/*', (req, res) => {
+  res.send(fs.createReadStream(path.join(__dirname, '../webui/dist/index.html')));
+})
 
 fastify.register(claimsRoute);
 fastify.register(fastifyWebsocket);
@@ -67,11 +73,6 @@ fastify.register(async function (fastify) {
     createChain(model);
   });
 });
-
-// // Declare a route
-// fastify.get('/', async (request, reply) => {
-//   return { hello: 'world' };
-// });
 
 /**
  * Run the server!
