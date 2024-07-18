@@ -19,8 +19,7 @@ const Chat: React.FunctionComponent<{ claimSummary: string }> = ({ claimSummary 
     const [answerSources, setAnswerSources] = React.useState<string[]>([]); // Array of sources for the answer
     const [messageHistory, setMessageHistory] = React.useState<MessageHistory>([]);
 
-    // const wsUrl = config.backend_api_url.replace(/http/, 'ws').replace(/\/api$/, '/ws');
-    const wsUrl = config.backend_ws_url;
+    const wsUrl = config.backend_api_url.replace(/http/, 'ws').replace(/\/api$/, '/ws');
 
     const connection = React.useRef<WebSocket | null>(null);
     const chatBotAnswer = document.getElementById('chatBotAnswer');
