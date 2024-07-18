@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import claimsRoute from './claims-route.mjs';
+import sqliteConnector from './sqlite-connector.mjs';
+
 import { getModel, createChain, answerQuestion, resetSessions } from './ai.mjs';
 
 const fastify = Fastify({
@@ -25,6 +27,7 @@ fastify.get('/*', (req, res) => {
   res.send(fs.createReadStream(path.join(__dirname, '../webui/dist/index.html')));
 })
 
+fastify.register(sqliteConnector);
 fastify.register(claimsRoute);
 fastify.register(fastifyWebsocket);
 fastify.register(async function (fastify) {
