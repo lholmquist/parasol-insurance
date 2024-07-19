@@ -33,7 +33,7 @@ fastify.register(fastifyWebsocket);
 fastify.register(async function (fastify) {
   fastify.get('/ws/query', { websocket: true }, (ws, req) => {
     ws.on('close', () => {
-      resetSessions();
+      resetSessions(ws);
       console.log('connection closed');
     });
 
@@ -53,7 +53,7 @@ fastify.register(async function (fastify) {
       console.log('Query from the Client', JSONmessage);
 
       console.log('Starting to Ask', new Date());
-      const answerStream = await answerQuestion(JSONmessage, '12345');
+      const answerStream = await answerQuestion(JSONmessage, ws);
 
       for await (const chunk of answerStream) {
         console.log(`Got Chat Response: ${chunk.content}`);

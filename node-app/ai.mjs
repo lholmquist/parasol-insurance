@@ -56,8 +56,8 @@ export async function answerQuestion(question, sessionId) {
   return result;
 }
 
-export function resetSessions() {
-  sessions = {};
+export function resetSessions(sessionId) {
+  delete sessions[sessionId];
 }
 
 function createQuestion(rawQuestion) {
