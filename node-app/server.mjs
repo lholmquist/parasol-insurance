@@ -32,8 +32,11 @@ fastify.register(claimsRoute);
 fastify.register(fastifyWebsocket);
 fastify.register(async function (fastify) {
   fastify.get('/ws/query', { websocket: true }, (ws, req) => {
+    const controller = new AbortController();
+
     ws.on('close', () => {
       resetSessions(ws);
+      controller.abort();
       console.log('connection closed');
     });
 
@@ -53,26 +56,31 @@ fastify.register(async function (fastify) {
       console.log('Query from the Client', JSONmessage);
 
       console.log('Starting to Ask', new Date());
-      const answerStream = await answerQuestion(JSONmessage, ws);
 
-      for await (const chunk of answerStream) {
-        console.log(`Got Chat Response: ${chunk.content}`);
+      try {
+        const answerStream = await answerQuestion(JSONmessage, ws);
 
-        //'{"type":"token","token":" Hello","source":""}'
-        const formattedAnswer = {
-          type: 'token',
-          token: chunk.content,
-          source: ''
-        };
+        for await (const chunk of answerStream) {
+          console.log(`Got Chat Response: ${chunk.content}`);
 
-        ws.send(JSON.stringify(formattedAnswer));
+          //'{"type":"token","token":" Hello","source":""}'
+          const formattedAnswer = {
+            type: 'token',
+            token: chunk.content,
+            source: ''
+          };
+
+          ws.send(JSON.stringify(formattedAnswer));
+        }
+      } catch (err) {
+        console.log(err);
       }
 
       console.log('Done Asking', new Date());
     });
 
     // AI Related Setup
-    const model = getModel();
+    const model = getModel().bind({ signal: controller.signal });
     createChain(model);
   });
 });
