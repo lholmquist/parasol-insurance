@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import fastifyWebsocket from '@fastify/websocket';
 import fastifyStatic from '@fastify/static';
+import fastifyEnv from '@fastify/env';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
 import fs from 'node:fs';
@@ -16,7 +17,12 @@ const fastify = Fastify({
   logger: true
 });
 
-console.log(__dirname);
+await fastify.register(fastifyEnv, {
+  schema: {
+    type: 'object'
+  },
+  dotenv: true
+});
 
 fastify.register(fastifyStatic, {
   wildcard: false,
@@ -90,7 +96,7 @@ fastify.register(async function (fastify) {
  */
 const start = async () => {
   try {
-    await fastify.listen({ port: 3001 })
+    await fastify.listen({ port: process.env.PORT || 3000 })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
