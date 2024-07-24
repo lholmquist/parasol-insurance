@@ -2,7 +2,7 @@
 
 A [Node.js](https://nodejs.org/) + [React](https://react.dev/) AI app for managing fictitious insurance claims. 
 
-![App](./webui/src/app/assets/images/sample.png)
+![App](../webui/src/app/assets/images/sample.png)
 
 ## Pre-requisites
 
@@ -33,6 +33,6 @@ cd node-app
 npm install
 node server.mjs
 ```
-App will open on `http://0.0.0.0:3001`.
+App will open on `http://0.0.0.0:8005`.
 
 Open the app, click on a claim, click on the chat app, and start asking questions. The context of the claim is sent to the LLM along with your Query, and the response is shown in the chat (it may take time depending on your machine's performance).
