@@ -96,7 +96,7 @@ fastify.register(async function (fastify) {
  */
 const start = async () => {
   try {
-    await fastify.listen({ port: process.env.PORT || 3000 })
+    await fastify.listen({ port: process.env.PORT || 8005 })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
