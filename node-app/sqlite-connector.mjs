@@ -14,12 +14,14 @@ async function sqliteConnection(fastify, options) {
   category TEXT NOT NULL,
   policy_number TEXT NOT NULL,
   client_name TEXT NOT NULL,
+  email_address TEXT NOT NULL,
   subject TEXT NOTE NULL,
   body TEXT NOTE NULL,
   summary TEXT NOTE NULL,
   location TEXT NOTE NULL,
   claim_time TEXT NOTE NULL,
-  sentiment TEXT NOTE NULL
+  sentiment TEXT NOTE NULL,
+  status TEXT NOTE NULL
   )`;
 
   db.serialize(() => {

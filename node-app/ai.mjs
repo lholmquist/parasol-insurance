@@ -61,7 +61,9 @@ export function resetSessions(sessionId) {
 }
 
 function createQuestion(rawQuestion) {
-  return `Claim Summary:
+  return `Claim ID: ${rawQuestion.claimId}
+
+  Claim Summary:
 
   ${rawQuestion.claim}
 
