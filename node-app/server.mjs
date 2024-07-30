@@ -24,7 +24,7 @@ await fastify.register(fastifyEnv, {
   dotenv: true
 });
 
-const webuiLocation = '../app/src/main/webui/dist';
+const webuiLocation = './webui/dist';
 
 fastify.register(fastifyStatic, {
   wildcard: false,
