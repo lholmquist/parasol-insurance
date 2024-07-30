@@ -24,13 +24,15 @@ await fastify.register(fastifyEnv, {
   dotenv: true
 });
 
+const webuiLocation = '../app/src/main/webui/dist';
+
 fastify.register(fastifyStatic, {
   wildcard: false,
-  root: path.join(__dirname, '../webui/dist')
+  root: path.join(__dirname, webuiLocation)
 });
 
 fastify.get('/*', (req, res) => {
-  res.send(fs.createReadStream(path.join(__dirname, '../webui/dist/index.html')));
+  res.send(fs.createReadStream(path.join(__dirname, webuiLocation, 'index.html')));
 })
 
 fastify.register(sqliteConnector);
