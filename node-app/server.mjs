@@ -9,6 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import claimsRoute from './claims-route.mjs';
+import emailRoute from './email-route.mjs';
 import sqliteConnector from './sqlite-connector.mjs';
 
 import { getModel, createChain, answerQuestion, resetSessions } from './ai.mjs';
@@ -37,6 +38,7 @@ fastify.get('/*', (req, res) => {
 
 fastify.register(sqliteConnector);
 fastify.register(claimsRoute);
+fastify.register(emailRoute);
 fastify.register(fastifyWebsocket);
 fastify.register(async function (fastify) {
   fastify.get('/ws/query', { websocket: true }, (ws, req) => {
