@@ -34,7 +34,6 @@ export function createChain(model) {
 }
 
 export async function answerQuestion(chain, claim) {
-  console.log(claim);
   const result = await chain.invoke(
     { input: claim }
   );
