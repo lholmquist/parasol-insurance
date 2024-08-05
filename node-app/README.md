@@ -21,15 +21,13 @@ First, get your inference server up and running. For example, with [InstructLab]
 First Build the webui:
 
 ```
-cd webui
-npm install
-npm run build
+cd node-app
+npm run buildui
 ```
 
 Then run the node.js app:
 
 ```
-cd node-app
 npm install
 node server.mjs
 ```
