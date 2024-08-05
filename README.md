@@ -29,6 +29,25 @@ Then:
 cd app;
 ./mvnw clean quarkus:dev
 ```
+
+<details>
+<summary>For Node.js:</summary>
+
+First Build the webui:
+
+```
+cd node-app
+npm run buildui
+```
+
+Then run the node.js app:
+
+```
+npm install
+node server.mjs
+```
+</details>
+
 App will open on `http://0.0.0.0:8005`.
 
 Open the app, click on a claim, click on the chat app, and start asking questions. The context of the claim is sent to the LLM along with your Query, and the response is shown in the chat (it may take time depending on your machine's performance).
